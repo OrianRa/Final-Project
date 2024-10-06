@@ -1,7 +1,5 @@
 # Final-Project
-# ======================================
 # Data Loading and Initial Preprocessing
-# ======================================
 
 # Load the dataset
 `df <- read.csv("C:\\Users\\User\\Desktop\\proposal -orian rashti\\data\\employee_survey.csv")`
@@ -20,9 +18,7 @@ df$TrainingHoursPerYear <- as.numeric(df$TrainingHoursPerYear)
 df_clean <- subset(df, Gender != "Other")
 ```
 
-# ======================================
 # Install Required Libraries
-# ======================================
 ```
 
 install.packages("randomForest")
@@ -34,9 +30,7 @@ library(ggplot2)
 library(reshape2)
 
 ```
-# ======================================
 # Factorizing Ordinal and Categorical Variables
-# ======================================
 
 # Ordinal variables (JobSatisfaction, WLB, WorkEnv, Workload, Stress)
 ```
@@ -59,9 +53,7 @@ df_clean$EduLevel <- as.factor(df_clean$EduLevel)
 df_clean$haveOT <- as.factor(df_clean$haveOT)
 
 ```
-# ======================================
 # Random Forest Models with 500 and 1000 Trees
-# ======================================
 
 # Model 1: All features except EmpID (500 trees)
 `model_rf1 <- randomForest(JobSatisfaction ~ . - EmpID, data = df_clean, ntree = 500)
@@ -78,9 +70,7 @@ importance(model_rf2)
 print(model_rf2)
 ```
 
-# ======================================
 # Reduced Model with Selected Features (500 Trees)
-# ======================================
 
 # Reduced model with selected features
 ```
@@ -94,9 +84,7 @@ importance(model_rf3)
 print(model_rf3)
 ```
 
-# ======================================
 # Variable Importance Visualization (Reduced Model)
-# ======================================
 
 # Extract importance from the reduced model
 `importance_df <- as.data.frame(importance(model_rf3))
@@ -114,9 +102,7 @@ ggplot(importance_df, aes(x = reorder(Variable, MeanDecreaseGini), y = MeanDecre
   ggtitle("Variable Importance in Random Forest Model")
 
 ```
-# ======================================
 # Confusion Matrix and Heatmap Visualization
-# ======================================
 
 # Create a confusion matrix for Model 2
 `conf_matrix <- table(predictions = predict(model_rf2, df_clean), actual = df_clean$JobSatisfaction)
